@@ -64,7 +64,7 @@ function register_post_type_noticias() {
 
 }
 
-
-
 add_theme_support('post-thumbnails');
 add_action('init', 'register_post_type_noticias');
+
+
