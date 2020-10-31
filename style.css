@@ -16,6 +16,11 @@ Use it to make something cool, have fun, and share what you've learned with othe
 
 */
 
-h1 {
-    color: red;
+.temp_thumbnail {
+    width: 100px;
+}
+
+.temp_thumbnail img {
+    width: 100%;
+    height: auto;
 }

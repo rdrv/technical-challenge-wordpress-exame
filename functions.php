@@ -37,7 +37,7 @@ function register_post_type_noticias() {
         'show_in_rest' => true,
     );
     
-    register_post_type( 'noticia', $args );
+    register_post_type( 'noticias', $args );
 
     // taxonomia customizada
 
@@ -60,7 +60,7 @@ function register_post_type_noticias() {
         'show_in_rest' => true
     );
     
-    register_taxonomy('tema', 'noticia', $argsTax);
+    register_taxonomy('tema', 'noticias', $argsTax);
 
 }
 
