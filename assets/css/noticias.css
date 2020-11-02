@@ -1,0 +1,49 @@
+.noticias_taxonomias {
+  font-size: 0 !important;
+  display: flex;
+}
+
+.noticias_taxonomias a,
+.noticias_taxonomias button {
+  font-size: 1rem;
+  background-color: var(--vermelho);
+  color: var(--branco);
+  border: none;
+  outline: none;
+  border-radius: 0.25em;
+  padding: 0.5em;
+  margin-right: 0.5em;
+}
+
+.noticias_taxonomias__selecionada {
+    background-color: var(--cinzaEscuro) !important;
+}
+
+.noticias_infos {
+  color: var(--cinzaEscuro);
+}
+
+.noticias_infos__small {
+  font-size: 0.75rem;
+}
+
+.noticias_infos__autor {
+}
+
+.noticias_infos__autor .avatar {
+  border-radius: 100%;
+  width: 45px;
+  height: 45px;
+}
+
+.noticias_infos__autor .noticias_infos__autor___nome {
+  font-size: 1rem;
+}
+
+.noticias_taxonomias__atual {
+  position: absolute;
+  top: 0;
+  z-index: -999;
+  opacity: 0;
+  font-size: 0;
+}

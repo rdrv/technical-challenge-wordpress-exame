@@ -4,18 +4,21 @@
     require_once('header.php');
 ?>
 
-<a href="<?= $urlNoticias ?>">Teste</a>
+<section class="noticias_taxonomias my-4">
+    <a id="todas" href="<?= $urlNoticias ?>">Todas</a>
+    <form action="<?= $urlNoticias ?>" method="get">
+        <?php 
+            $categorias = get_terms('categorias');
+            foreach ($categorias as $categoria) { ?>
+            <button name="categorias" value="<?= $categoria->slug ?>" id="<?= $categoria->slug ?>" type="submit"><?= $categoria->name ?></button>
+        <?php } ?>
+    </form>
+    <small class="noticias_taxonomias__atual"><?= $_GET['categorias'] ?></small>
+</section>
 
-<form action="<?= $urlNoticias ?>" method="get">
-    <?php 
-        $categorias = get_terms('categorias');
-        foreach ($categorias as $categoria) { ?>
-        <button name="categorias" value="<?= $categoria->slug ?>" type="submit"><?= $categoria->name ?></button>
-    <?php } ?>
-</form>
+<ul class="card-columns">
 
 <?php 
-
 
 $existeBusca = array_key_exists('categorias', $_GET);
 
@@ -39,24 +42,15 @@ $loopNoticias = new WP_Query($args);
 if( $loopNoticias->have_posts() ) {
     while ( $loopNoticias->have_posts() ) {
         $loopNoticias->the_post();
-?>
-
-<li>
-    <a href="<?= the_permalink() ?>">
-        <div class="temp_thumbnail">
-            <?php the_post_thumbnail(); ?>
-        </div>
-        <h4><?php the_title(); ?></h4>
-        <p><?php the_excerpt() ?></p>
-    </a>
-</li>
-
-</ul>
-
-<?php
+        include('card.php');
     }
 }
 
 ?>
 
-<?php get_footer(); ?>
+</ul>
+
+<?php 
+    $jss = array('noticias');   
+    require_once('footer.php');
+?>

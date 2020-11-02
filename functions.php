@@ -83,9 +83,13 @@ add_action('init', 'register_nav_menu_tema');
 
 function set_title() {
     bloginfo('name');
-    if( !is_home() ) {
+    if( !is_home() && !is_tax('categorias') ) {
         echo ' | ';
         the_title();
+    }
+    if( is_tax('categorias') ) {
+        echo ' | ';
+        single_term_title();
     }
 }
 

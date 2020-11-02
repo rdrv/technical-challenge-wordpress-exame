@@ -1,41 +1,32 @@
-<?php get_header(); ?>
-
-
-<h3>Últimas Notícias</h3>
-
-<ul>
-
 <?php 
-
-$args = array(
-    'post_type' => 'noticias',
-    'posts_per_page' => 3,
-);
-
-$tresNoticiasRecentes = new WP_Query($args);
-
-if( $tresNoticiasRecentes->have_posts() ) {
-    while ( $tresNoticiasRecentes->have_posts() ) {
-        $tresNoticiasRecentes->the_post();
+    $csss = array('card');   
+    require_once('header.php');
 ?>
 
-<li>
-    <a href="<?= the_permalink() ?>">
-        <div class="temp_thumbnail">
-            <?php the_post_thumbnail(); ?>
-        </div>
-        <h4><?php the_title(); ?></h4>
-        <p><?php the_excerpt() ?></p>
-        <?php the_taxonomies(); ?>
-        <?= get_the_date(); ?>
-    </a>
-</li>
-
-</ul>
-<?php
+<main class="my-4">
+    <h3 class="h1 m-5 mr-auto ml-auto text-center font-weight-bold">Últimas Notícias</h3>
+    
+    <ul class="card-columns">
+    
+    <?php 
+    
+    $args = array(
+        'post_type' => 'noticias',
+        'posts_per_page' => 3,
+    );
+    
+    $tresNoticiasRecentes = new WP_Query($args);
+    
+    if( $tresNoticiasRecentes->have_posts() ) {
+        while ( $tresNoticiasRecentes->have_posts() ) {
+            $tresNoticiasRecentes->the_post();
+            include('card.php');
+        }
     }
-}
+    ?>
+    
+    </ul>
+</main>
 
-?>
 
 <?php get_footer(); ?>

@@ -1,0 +1,20 @@
+.single_titulo,
+.single_titulo + p,
+.single_content {
+    color: var(--cinzaEscuro);
+}
+
+.single_content {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+}
+
+.single_titulo + p {
+    font-size: 1rem;
+    line-height: 1.5rem;
+}
+
+.single_imagem {
+    width: 100%;
+    height: auto;
+}

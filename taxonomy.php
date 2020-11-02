@@ -1,25 +1,31 @@
-<?php get_header(); ?>
-
 <?php 
-if( have_posts() ) {
-    while ( have_posts() ) {
-        the_post();
+    $csss = array('card');   
+    require_once('header.php');
 ?>
 
-    <a href="<?= the_permalink() ?>">
-        <div class="temp_thumbnail">
-            <?php the_post_thumbnail(); ?>
-        </div>
-        <h4><?php the_title(); ?></h4>
-        <p><?php the_excerpt() ?></p>
-        <?php the_taxonomies(); ?>
-        <?= get_the_date(); ?>
-    </a>
-
-<?php
+<main class="my-4">
+    <h3 class="h1 m-5 mr-auto ml-auto text-center font-weight-bold">
+        <?php 
+            $term = get_term_by( 'slug', get_query_var( 'term' ), get_query_var( 'taxonomy' ) );
+            echo $term->name; 
+        ?>
+    </h3>
+    
+    <ul class="card-columns">
+    
+    <?php 
+    
+    if( have_posts() ) {
+        while ( have_posts() ) {
+            the_post();
+            include('card.php');
+        }
     }
-}
 
-?>
+    ?>
+    
+    </ul>
+</main>
+
 
 <?php get_footer(); ?>
