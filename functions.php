@@ -1,13 +1,15 @@
 <?php
 
+// custom post type noticias
+
 function register_post_type_noticias() {
 
-    // post type customizado
+    // cria um post type customizado
 
     $plural = 'Notícias';
     $singular = 'Notícia';
     $descricao = 'Dashboard para Notícias';
-    
+
     $labels = array(
         'name' => $plural,
         'singular_name' => $singular,
@@ -27,7 +29,7 @@ function register_post_type_noticias() {
         'thumbnail',
         'excerpt',
     );
-    
+
     $args = array(
         'labels' => $labels,
         'public' => true,
@@ -36,14 +38,14 @@ function register_post_type_noticias() {
         'supports' => $supports,
         'show_in_rest' => true,
     );
-    
+
     register_post_type( 'noticias', $args );
 
-    // taxonomia customizada
+    // cria taxonomia customizada
 
-    $pluralTax = 'Temas';
-    $singularTax = 'Tema';
-    
+    $pluralTax = 'Categorias';
+    $singularTax = 'Categoria';
+
     $labelsTax = array(
         'name' => $pluralTax,
         'singular_name' => $singularTax,
@@ -51,7 +53,7 @@ function register_post_type_noticias() {
         'add_new_item' => 'Adicionar novo ' . $singularTax,
         'search_items' => 'Pesquisar ' . $pluralTax
     );
-    
+
     $argsTax = array(
         'labels' => $labelsTax,
         'public' => true,
@@ -59,12 +61,32 @@ function register_post_type_noticias() {
         'show_admin_column' => true,
         'show_in_rest' => true
     );
-    
-    register_taxonomy('tema', 'noticias', $argsTax);
+
+    register_taxonomy('categorias', 'noticias', $argsTax);
 
 }
 
+// instancia custom post type noticia
+
 add_theme_support('post-thumbnails');
 add_action('init', 'register_post_type_noticias');
+
+// menu do tema
+
+function register_nav_menu_tema() {
+    register_nav_menu('header-menu', 'main-menu');
+}
+
+add_action('init', 'register_nav_menu_tema');
+
+// set page title dinamicamente
+
+function set_title() {
+    bloginfo('name');
+    if( !is_home() ) {
+        echo ' | ';
+        the_title();
+    }
+}
 
 
