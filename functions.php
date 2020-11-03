@@ -1,5 +1,8 @@
 <?php
 
+// theme supports
+add_theme_support('post-thumbnails');
+
 // custom post type noticias
 
 function register_post_type_noticias() {
@@ -66,10 +69,50 @@ function register_post_type_noticias() {
 
 }
 
+// custom post type noticias - return post thumbnail url in api 
+
+function get_post_img_for_api( $object ) {
+
+    $more_post_meta['image_url'] = get_the_post_thumbnail_url( $object['id'], 'large' );    
+
+    return $more_post_meta;
+}
+
+function create_api_posts_img_field() {
+ 
+    register_rest_field( 'noticias', 'main_image', array(
+       'get_callback'    => 'get_post_img_for_api',
+       'schema'          => null,
+    	)
+	);
+
+}
+
+// custom post type noticias - return post taxonomy in api 
+
+function get_post_taxonomy_for_api( $object ) {
+
+    $more_post_taxonomy['taxonomy_names'] = wp_get_object_terms( $object['id'], 'categorias');
+
+    return $more_post_taxonomy;
+}
+
+function create_api_posts_taxonomy_field() {
+ 
+    register_rest_field( 'noticias', 'taxonomy', array(
+       'get_callback'    => 'get_post_taxonomy_for_api',
+       'schema'          => null,
+    	)
+	);
+
+}
+
+
 // instancia custom post type noticia
 
-add_theme_support('post-thumbnails');
 add_action('init', 'register_post_type_noticias');
+add_action( 'rest_api_init', 'create_api_posts_img_field' );
+add_action( 'rest_api_init', 'create_api_posts_taxonomy_field' );
 
 // menu do tema
 
@@ -92,5 +135,6 @@ function set_title() {
         single_term_title();
     }
 }
+
 
 
