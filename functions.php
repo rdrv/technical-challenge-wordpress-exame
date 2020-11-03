@@ -107,7 +107,6 @@ function create_api_posts_taxonomy_field() {
 
 }
 
-
 // instancia custom post type noticia
 
 add_action('init', 'register_post_type_noticias');
@@ -135,6 +134,51 @@ function set_title() {
         single_term_title();
     }
 }
+
+// limpando o dash dos editores
+
+function remove_menus() {
+
+    // pega current login user's role
+    $roles = wp_get_current_user()->roles;
+     
+    // testa user's role
+    if( !in_array('editor',$roles)){
+        return;
+    }
+     
+    //removendo itens do menu:
+
+    //Dashboard
+    remove_menu_page( 'index.php' );
+
+    //Default Posts
+    remove_menu_page( 'edit.php' );
+
+    //Comments
+    remove_menu_page( 'edit-comments.php' );
+
+    //Appearance
+    remove_menu_page( 'themes.php' );
+
+    //Plugins
+    remove_menu_page( 'plugins.php' );
+    
+    //Users
+    remove_menu_page( 'users.php' );
+
+    //Tools
+    remove_menu_page( 'tools.php' );
+
+    //Settings
+    remove_menu_page( 'options-general.php' );
+
+    //Pages
+    remove_menu_page( 'edit.php?post_type=page' );
+
+}
+
+add_action( 'admin_menu', 'remove_menus' , 100 );
 
 
 
